@@ -1,399 +1,257 @@
 <!DOCTYPE html>
-<!-- 声明文档类型为HTML5，指定网页语言为中文（中国大陆） -->
 <html lang="zh-CN">
 <head>
-    <!-- 配置网页字符编码为UTF-8，确保中文等特殊字符正常显示 -->
     <meta charset="UTF-8">
-    <!-- 配置视口（viewport），使网页在移动设备上自适应显示，初始缩放比例为1.0 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 网页标题，显示在浏览器标签栏 -->
     <title>异构梦工作室</title>
     <style>
-        /* 全局样式重置：清除所有元素默认的margin和padding，统一盒模型为border-box */
+        /* 全局样式重置 */
         * {
             margin: 0;
             padding: 0;
-            /* border-box：元素的width/height包含边框和内边距，不包含外边距 */
             box-sizing: border-box;
-            /* 统一全局字体为Arial（无衬线字体），兼容性强 */
             font-family: 'Arial', sans-serif;
         }
         
-        /* 网页主体样式设置 */
+        /* 主体样式 */
         body {
-            /* 背景色：浅灰色，避免纯白过于刺眼 */
-            background-color: #f9f9f9;
-            /* 文本颜色：深灰色，提升可读性（比纯黑更柔和） */
+            background-color: #FFEBF0;
             color: #333;
-            /* 行高：1.6倍字体大小，优化文本段落的阅读体验 */
             line-height: 1.6;
         }
         
-        /* 导航栏样式区域：固定在页面顶部，作为网站导航入口 */
+        /* 导航栏 */
         header {
-            /* 导航栏背景色：白色，与主体浅灰背景区分 */
-            background-color: white;
-            /* 底部阴影：添加轻微阴影，增强层次感 */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            /* 定位：固定在页面顶部，不随滚动条移动 */
+            background-color: #FFF0F5;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
             position: fixed;
             top: 0;
-            /* 宽度：占满整个页面 */
             width: 100%;
-            /* 层级：z-index=100，确保导航栏在其他元素上方，不被遮挡 */
             z-index: 100;
         }
         
-        /* 导航栏容器：控制导航栏内容的宽度和居中对齐 */
         .nav-container {
-            /* 最大宽度：1200px，防止在宽屏显示器上内容过宽 */
             max-width: 1200px;
-            /* 水平居中：左右margin自动 */
             margin: 0 auto;
-            /* 内边距：上下15px，左右20px，控制内容与边框的距离 */
             padding: 15px 20px;
-            /* 弹性布局：使子元素（logo和下拉菜单）左右分布 */
             display: flex;
-            /* 主轴对齐：两端对齐，logo居左，下拉菜单位右 */
             justify-content: space-between;
-            /* 交叉轴对齐：垂直居中，确保logo和下拉菜单在同一水平线上 */
             align-items: center;
         }
         
-        /* Logo区域：包含logo占位图和工作室名称 */
+        /* Logo区域 */
         .logo {
-            /* 弹性布局：使logo占位图和文字横向排列 */
             display: flex;
-            /* 交叉轴对齐：垂直居中 */
             align-items: center;
-            /* 间距：两个元素之间的距离为10px */
             gap: 10px;
         }
         
-        /* Logo占位图：预留插入实际logo图片的位置 */
         .logo-placeholder {
-            /* 宽高：40px，设置logo的固定尺寸 */
             width: 40px;
             height: 40px;
-            /* 背景色：蓝色，作为临时logo背景 */
-            background-color: #4a6cf7;
-            /* 圆角：5px，使方块边角圆润 */
+            background-color: bisque;
             border-radius: 5px;
-            /* 弹性布局：使内部文字居中 */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 文字颜色：白色 */
             color: white;
-            /* 文字粗细：加粗 */
             font-weight: bold;
         }
         
-        /* 工作室名称样式 */
         .studio-name {
-            /* 字体大小：24px，突出工作室名称 */
             font-size: 24px;
-            /* 文字粗细：加粗 */
             font-weight: bold;
-            /* 文字颜色：深灰色，与背景区分 */
             color: #333;
         }
         
-        /* 下拉菜单容器：用于包裹下拉按钮和菜单内容 */
+        /* 下拉菜单 */
         .dropdown {
-            /* 定位：相对定位，为子元素（下拉内容）的绝对定位提供参考 */
             position: relative;
         }
         
-        /* 下拉菜单按钮样式 */
         .dropdown-btn {
-            /* 按钮背景色：蓝色，与logo颜色一致，保持风格统一 */
-            background-color: #4a6cf7;
-            /* 文字颜色：白色 */
-            color: white;
-            /* 边框：无，清除默认按钮边框 */
+            background-color: #F0E6D2;
+            color: black;
             border: none;
-            /* 内边距：上下8px，左右15px，控制按钮大小 */
             padding: 8px 15px;
-            /* 圆角：4px，使按钮边角圆润 */
             border-radius: 4px;
-            /* 鼠标样式：指针，提示用户可点击 */
             cursor: pointer;
-            /* 弹性布局：使按钮文字和下拉图标横向排列 */
             display: flex;
             align-items: center;
-            /* 间距：文字和图标之间的距离为5px */
-            gap: 5px;
+            width: 80px;
         }
         
-        /* 下拉菜单内容：默认隐藏， hover时显示 */
         .dropdown-content {
-            /* 定位：绝对定位，相对于父容器（.dropdown）右侧对齐 */
             position: absolute;
             right: 0;
-            /* 顶部：与父按钮底部对齐 */
             top: 100%;
-            /* 上外边距：5px，与按钮保持微小距离 */
             margin-top: 5px;
-            /* 背景色：白色，与导航栏一致 */
-            background-color: white;
-            /* 阴影：添加阴影，增强菜单层次感 */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            /* 宽度：180px，固定下拉菜单宽度 */
+            background-color: #FFF0F5;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             width: 180px;
-            /* 圆角：4px，使菜单边角圆润 */
-            border-radius: 4px;
-            /* 溢出隐藏：防止内容超出菜单范围 */
+            border-radius: 5px;
             overflow: hidden;
-            /* 默认隐藏：初始状态不显示菜单 */
             display: none;
         }
         
-        /* 下拉菜单 hover 触发：鼠标悬停在.dropdown上时，显示菜单内容 */
-        .dropdown:hover .dropdown-content {
+        .dropdown-content.active {
             display: block;
         }
         
-        /* 下拉菜单项样式：每个导航链接的样式 */
         .dropdown-content a {
-            /* 显示方式：块级元素，使链接独占一行 */
             display: block;
-            /* 内边距：上下10px，左右15px，控制链接点击区域大小 */
             padding: 10px 15px;
-            /* 文字颜色：深灰色 */
             color: #333;
-            /* 文本装饰：无，清除默认链接的下划线 */
             text-decoration: none;
         }
         
-        /* 下拉菜单项 hover 效果：鼠标悬停时改变背景色 */
         .dropdown-content a:hover {
             background-color: #f0f0f0;
         }
         
-        /* 主内容区样式：包含轮播图的核心内容区域 */
+        /* 主内容区 */
         main {
-            /* 最大宽度：1200px，与导航栏容器宽度一致，保持页面整体对齐 */
             max-width: 1200px;
-            /* 水平居中 */
             margin: 0 auto;
-            /* 内边距：上100px（避开固定的导航栏），下50px（与页脚保持距离），左右20px */
             padding: 100px 20px 50px;
         }
         
-        /* 轮播图容器：控制轮播图整体样式和定位 */
+        /* 轮播图（核心滑动样式） */
         .carousel {
-            /* 定位：相对定位，为轮播图内部元素（控制按钮、指示器）提供参考 */
             position: relative;
-            /* 高度：500px，固定轮播图显示高度 */
             height: 500px;
-            /* 圆角：8px，使轮播图边角圆润 */
             border-radius: 8px;
-            /* 溢出隐藏：防止轮播图内容超出容器范围 */
             overflow: hidden;
-            /* 阴影：添加较深阴影，突出轮播图区域 */
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            flex-wrap: nowrap;
         }
         
-        /* 轮播图项：每个轮播图片的容器 */
         .carousel-item {
-            /* 定位：绝对定位，使所有轮播项重叠在同一位置 */
-            position: absolute;
-            top: 0;
-            left: 0;
-            /* 宽高：占满轮播图容器 */
-            width: 100%;
-            height: 100%;
-            /* 默认隐藏：初始状态只显示有active类的项 */
-            display: none;
-            /* 过渡动画：切换时平滑过渡（可选，增强体验） */
-            transition: opacity 0.5s ease;
-            opacity: 0;
-        }
-        
-        /* 激活的轮播图项：当前显示的轮播图片 */
-        .carousel-item.active {
-            /* 显示方式：块级元素，使当前轮播项可见 */
+            flex: 0 0 100%;
+            transition: transform 0.5s ease;
             display: block;
-            opacity: 1;
         }
         
-        /* 轮播图图片样式 */
         .carousel-item img {
-            /* 宽高：占满轮播图项容器 */
             width: 100%;
             height: 100%;
-            /* 图片适配：cover模式，保持图片比例并填满容器（可能裁剪边缘） */
             object-fit: cover;
         }
         
-        /* 轮播图控制按钮：左右切换按钮的通用样式 */
+        /* 轮播控制按钮 */
         .carousel-control {
-            /* 定位：绝对定位，使按钮悬浮在轮播图上 */
             position: absolute;
-            /* 垂直居中：top=50% +  translateY(-50%)，实现精确垂直居中 */
             top: 50%;
             transform: translateY(-50%);
-            /* 背景色：黑色半透明（rgba透明度0.3），不遮挡图片内容 */
             background-color: rgba(0,0,0,0.3);
-            /* 文字颜色：白色 */
             color: white;
-            /* 边框：无 */
             border: none;
-            /* 宽高：40px，设置按钮为圆形 */
             width: 40px;
             height: 40px;
-            /* 圆角：50%，使按钮呈圆形 */
             border-radius: 50%;
-            /* 鼠标样式：指针 */
             cursor: pointer;
-            /* 弹性布局：使按钮内的箭头符号居中 */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* 过渡效果：hover时背景色加深 */
             transition: background-color 0.3s ease;
+            z-index: 10;
         }
         
-        /* 控制按钮hover效果 */
         .carousel-control:hover {
             background-color: rgba(0,0,0,0.5);
         }
         
-        /* 左侧切换按钮：定位在轮播图左侧 */
         .prev {
             left: 15px;
         }
         
-        /* 右侧切换按钮：定位在轮播图右侧 */
         .next {
             right: 15px;
         }
         
-        /* 轮播图指示器容器：包含多个小圆点指示器 */
+        /* 轮播指示器 */
         .carousel-indicators {
-            /* 定位：绝对定位，固定在轮播图底部 */
             position: absolute;
             bottom: 20px;
-            /* 左右对齐：使容器占满轮播图宽度 */
             left: 0;
             right: 0;
-            /* 弹性布局：使指示器横向排列并居中 */
             display: flex;
             justify-content: center;
-            /* 间距：每个指示器之间的距离为8px */
             gap: 8px;
+            z-index: 10;
         }
         
-        /* 轮播图指示器：单个小圆点样式 */
         .indicator {
-            /* 宽高：10px，设置指示器大小 */
             width: 10px;
             height: 10px;
-            /* 圆角：50%，使指示器呈圆形 */
             border-radius: 50%;
-            /* 背景色：白色半透明（透明度0.5），未激活状态 */
             background-color: rgba(255,255,255,0.5);
-            /* 边框：无 */
             border: none;
-            /* 鼠标样式：指针 */
             cursor: pointer;
-            /* 过渡效果：激活时颜色变化 */
             transition: background-color 0.3s ease;
         }
         
-        /* 激活的指示器：当前轮播图对应的指示器样式 */
         .indicator.active {
-            /* 背景色：纯白色，与未激活状态区分 */
             background-color: white;
-            /* 放大激活的指示器（可选，增强视觉反馈） */
             transform: scale(1.2);
         }
         
-        /* 页脚样式：页面底部区域，包含联系方式和版权信息 */
+        /* 页脚 */
         footer {
-            /* 背景色：深灰色，与主体浅灰背景区分 */
-            background-color: #333;
-            /* 文字颜色：白色 */
+            background-color: rgba(0,0,0,0.8);
             color: white;
-            /* 内边距：上下40px，左右20px，控制页脚内容与边框的距离 */
-            padding: 40px 20px;
+            padding: 40px 30px;
         }
         
-        /* 页脚容器：控制页脚内容的宽度和居中对齐 */
         .footer-container {
-            /* 最大宽度：1200px，与导航栏、主内容区宽度一致 */
             max-width: 1200px;
-            /* 水平居中 */
             margin: 0 auto;
-            /* 弹性布局（垂直方向）：使子元素（footer-info和copyright）纵向排列 */
             display: flex;
             flex-direction: column;
-            /* 间距：两个子元素之间的距离为20px */
             gap: 20px;
         }
         
-        /* 页脚信息区域：包含工作室名称和联系方式 */
         .footer-info {
-            /* 弹性布局：使子元素（工作室名称、联系方式）横向排列 */
             display: flex;
-            /* 主轴对齐：两端对齐，工作室名称居左，联系方式居右 */
             justify-content: space-between;
-            /* 换行：在窄屏设备上自动换行，避免内容溢出 */
             flex-wrap: wrap;
-            /* 间距：换行后两个元素之间的距离为20px */
             gap: 20px;
         }
         
-        /* 联系方式标题样式 */
         .contact-info h3 {
-            /* 下外边距：15px，与下方联系方式文本区分 */
             margin-bottom: 15px;
-            /* 字体大小：18px，突出标题 */
             font-size: 18px;
         }
         
-        /* 联系方式文本样式 */
         .contact-info p {
-            /* 下外边距：8px，控制每行联系方式之间的距离 */
             margin-bottom: 8px;
         }
         
-        /* 版权信息区域：页面最底部的版权声明 */
         .copyright {
-            /* 文本对齐：居中 */
             text-align: center;
-            /* 上内边距：20px，与上方内容保持距离 */
             padding-top: 20px;
-            /* 上边框：1px浅色边框，与上方内容做视觉分隔 */
             border-top: 1px solid rgba(255,255,255,0.1);
-            /* 上外边距：20px，与上方内容保持距离 */
             margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- 导航栏区域：页面顶部固定导航，包含logo和下拉菜单 -->
+    <!-- 导航栏 -->
     <header>
         <div class="nav-container">
-            <!-- 工作室Logo和名称区域：左侧展示 -->
             <div class="logo">
-                <!-- Logo占位图：预留插入实际logo图片的位置，当前用"梦"字临时替代 -->
                 <div class="logo-placeholder">
-                    <span>梦</span>
+                    <span>!</span>
                 </div>
-                <!-- 工作室名称：突出显示品牌名称 -->
                 <div class="studio-name">异构梦</div>
             </div>
             
-            <!-- 下拉导航菜单：右侧展示，包含6个导航选项 -->
             <div class="dropdown">
-                <!-- 下拉菜单按钮：点击或hover时展开菜单 -->
-                <button class="dropdown-btn">
+                <button class="dropdown-btn" id="dropdownBtn">
                     菜单 ▼
                 </button>
-                <!-- 下拉菜单内容：包含6个导航链接，默认隐藏 -->
-                <div class="dropdown-content">
+                <div class="dropdown-content" id="dropdownContent">
                     <a href="#">首页</a>
                     <a href="#">关于我们</a>
                     <a href="#">服务项目</a>
@@ -405,29 +263,22 @@
         </div>
     </header>
 
-    <!-- 主内容区域：页面核心内容，包含图片轮播 -->
+    <!-- 主内容区（轮播图） -->
     <main>
-        <!-- 图片轮播区域：展示3张工作室相关图片，支持自动播放和手动切换 -->
         <div class="carousel">
-            <!-- 轮播图片1：初始激活状态（显示） -->
-            <div class="carousel-item active">
+            <div class="carousel-item" data-index="0">
                 <img src="https://picsum.photos/id/1/1200/500" alt="异构梦工作室作品展示1">
             </div>
-            <!-- 轮播图片2：默认隐藏 -->
-            <div class="carousel-item">
+            <div class="carousel-item" data-index="1">
                 <img src="https://picsum.photos/id/2/1200/500" alt="异构梦工作室作品展示2">
             </div>
-            <!-- 轮播图片3：默认隐藏 -->
-            <div class="carousel-item">
+            <div class="carousel-item" data-index="2">
                 <img src="https://picsum.photos/id/3/1200/500" alt="异构梦工作室作品展示3">
             </div>
 
-            <!-- 轮播控制按钮：左切换 -->
             <button class="carousel-control prev">&lt;</button>
-            <!-- 轮播控制按钮：右切换 -->
             <button class="carousel-control next">&gt;</button>
 
-            <!-- 轮播指示器：小圆点切换 -->
             <div class="carousel-indicators">
                 <button class="indicator active" data-index="0"></button>
                 <button class="indicator" data-index="1"></button>
@@ -436,97 +287,109 @@
         </div>
     </main>
 
-    <!-- 页脚区域：页面底部，包含联系方式和版权信息 -->
+    <!-- 页脚 -->
     <footer>
         <div class="footer-container">
             <div class="footer-info">
-                <!-- 工作室名称（页脚重复展示，增强品牌记忆） -->
                 <div class="studio-name-footer">
                     <h2>异构梦工作室</h2>
-                    <p>专注于创意设计与技术开发的专业团队</p>
+                    <p>因为光影，你我相遇</p>
                 </div>
-                <!-- 联系方式 -->
                 <div class="contact-info">
                     <h3>联系我们</h3>
-                    <p>邮箱：contact@yigoumeng.com</p>
-                    <p>电话：138-XXXX-8888</p>
-                    <p>地址：XX市XX区创意产业园A座1001室</p>
+                    <p>邮箱：3438631534@qq.com</p>
+                    <p>电话：18166541592</p>
                 </div>
             </div>
-            <!-- 版权信息 -->
             <div class="copyright">
-                <p>&copy; 2024 异构梦工作室 版权所有 | 京ICP备XXXXXXXX号</p>
+                <p>&copy; 异构梦工作室 版权所有</p>
             </div>
         </div>
     </footer>
 
-    <!-- 轮播图交互JavaScript -->
+    <!-- 交互脚本 -->
     <script>
-        // 1. 获取轮播相关DOM元素
-        const carouselItems = document.querySelectorAll('.carousel-item'); // 所有轮播项
-        const indicators = document.querySelectorAll('.indicator'); // 所有指示器
-        const prevBtn = document.querySelector('.prev'); // 左切换按钮
-        const nextBtn = document.querySelector('.next'); // 右切换按钮
-        let currentIndex = 0; // 当前显示的轮播项索引（初始为0，即第一张）
-        let carouselTimer; // 自动播放计时器
+        // 下拉菜单控制
+        const dropdownBtn = document.getElementById('dropdownBtn');
+        const dropdownContent = document.getElementById('dropdownContent');
+        
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dropdownContent.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', () => {
+            dropdownContent.classList.remove('active');
+        });
+        
+        dropdownContent.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
 
-        // 2. 核心函数：切换到指定索引的轮播项
-        function showSlide(index) {
-            // 2.1 移除所有轮播项的active类（隐藏所有）
-            carouselItems.forEach(item => item.classList.remove('active'));
-            // 2.2 移除所有指示器的active类（重置指示器）
-            indicators.forEach(indicator => indicator.classList.remove('active'));
+        // 轮播图控制（滑动逻辑）
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        const carousel = document.querySelector('.carousel');
+        let currentIndex = 0;
+        let carouselTimer;
+
+        // 滑动切换核心函数
+        function showSlide(targetIndex) {
+            // 边界处理（循环切换）
+            if (targetIndex >= carouselItems.length) targetIndex = 0;
+            else if (targetIndex < 0) targetIndex = carouselItems.length - 1;
             
-            // 2.3 处理索引边界（循环切换：最后一张切到第一张，第一张切到最后一张）
-            if (index >= carouselItems.length) currentIndex = 0;
-            else if (index < 0) currentIndex = carouselItems.length - 1;
-            else currentIndex = index;
+            // 计算位移并应用
+            const slideDistance = -100 * targetIndex;
+            carouselItems.forEach(item => {
+                item.style.transform = `translateX(${slideDistance}%)`;
+            });
             
-            // 2.4 为当前索引的轮播项和指示器添加active类（显示当前项）
-            carouselItems[currentIndex].classList.add('active');
-            indicators[currentIndex].classList.add('active');
+            // 更新指示器
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === targetIndex);
+            });
+            
+            currentIndex = targetIndex;
         }
 
-        // 3. 自动播放函数
+        // 自动播放
         function startAutoPlay() {
-            // 清除之前的计时器（避免重复计时）
             clearInterval(carouselTimer);
-            // 每5秒切换到下一张（5000毫秒）
             carouselTimer = setInterval(() => {
                 showSlide(currentIndex + 1);
             }, 5000);
         }
 
-        // 4. 绑定事件：左切换按钮（上一张）
+        // 按钮事件绑定
         prevBtn.addEventListener('click', () => {
             showSlide(currentIndex - 1);
-            startAutoPlay(); // 点击后重置自动播放计时器
+            startAutoPlay();
         });
 
-        // 5. 绑定事件：右切换按钮（下一张）
         nextBtn.addEventListener('click', () => {
             showSlide(currentIndex + 1);
-            startAutoPlay(); // 点击后重置自动播放计时器
+            startAutoPlay();
         });
 
-        // 6. 绑定事件：指示器点击切换
+        // 指示器事件绑定
         indicators.forEach((indicator, index) => {
             indicator.addEventListener('click', () => {
                 showSlide(index);
-                startAutoPlay(); // 点击后重置自动播放计时器
+                startAutoPlay();
             });
         });
 
-        // 7. 绑定事件：鼠标悬停轮播图时暂停自动播放
-        const carousel = document.querySelector('.carousel');
+        // 鼠标悬停暂停/恢复
         carousel.addEventListener('mouseenter', () => {
             clearInterval(carouselTimer);
         });
 
-        // 8. 绑定事件：鼠标离开轮播图时恢复自动播放
         carousel.addEventListener('mouseleave', startAutoPlay);
 
-        // 9. 页面加载完成后，启动自动播放并显示第一张轮播图
+        // 初始化（页面加载完成后显示第一张）
         window.addEventListener('load', () => {
             showSlide(0);
             startAutoPlay();
